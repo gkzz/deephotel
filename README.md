@@ -17,8 +17,8 @@ I'm glad you to give feedback.
 
 Thank you for @monkeylearn!!
 ## crawl to review-text of hotels in osaka @Booking.com
-scrapy crawl booking_review -a start_url="https://www.booking.com/searchresults.ja.html?city=-240905;ss=%E5%A4%A7%E9%98%AA%E5%B8%82" -o osaka180609review_bk.csv
+scrapy crawl booking_review -a start_url="https://www.booking.com/searchresults.ja.html?city=-240905;ss=%E5%A4%A7%E9%98%AA%E5%B8%82" -o <file name>.csv
 
 
 ## crawl to review-score of hotels in osaka @Booking.com
-scrapy crawl booking_score -a start_url="https://www.booking.com/searchresults.ja.html?city=-240905;ss=%E5%A4%A7%E9%98%AA%E5%B8%82" -o osaka180609score_bk.csv
+scrapy crawl booking_score -a start_url="https://www.booking.com/searchresults.ja.html?city=-240905;ss=%E5%A4%A7%E9%98%AA%E5%B8%82" -o <file name>k.csv
