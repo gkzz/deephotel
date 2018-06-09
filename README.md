@@ -1,6 +1,6 @@
-# Only Scraping Hotel's Info @TripAdvisor.jp, Booking.com
+# Only Scraping Hotel's Data @TripAdvisor.jp, Booking.com
 
-Python Function To Scrape Info is Hotel's Name, Address, Review Text, Score, and so on.
+Python Function To Scrape Hotel's data is hotel's name, address, review text, score, and so on, "Except pricing data"
 
 Based on "https://github.com/monkeylearn/hotel-review-analysis"
 
