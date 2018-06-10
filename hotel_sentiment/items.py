@@ -17,13 +17,6 @@ class TripAdvisorScoreItem(scrapy.Item):
     rate_of_en = scrapy.Field()
     review_qty_zhCN = scrapy.Field()
     rate_of_zhCN = scrapy.Field()
-    rktn_price = scrapy.Field()
-    knt_price = scrapy.Field()
-    relux_price = scrapy.Field()
-    ikyu_price = scrapy.Field()
-    bkcm_price = scrapy.Field()
-    expd_price = scrapy.Field()
-    jtb_price = scrapy.Field()
     datetime = scrapy.Field()
     date = scrapy.Field()
 
