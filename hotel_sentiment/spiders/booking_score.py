@@ -2,6 +2,10 @@
 import scrapy
 from scrapy.loader import ItemLoader
 from hotel_sentiment.items import BookingScoreItem
+# from scrapy_splash import SplashRequest # If you use scrapy_splash, you nedd this code.
+import time
+import math
+import datetime
 
 
 class BookingScoreSpider(scrapy.Spider):
@@ -24,6 +28,21 @@ class BookingScoreSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(BookingScoreSpider, self).__init__(*args, **kwargs)
         self.start_urls = [kwargs.get('start_url')]
+    
+    """
+    # If you use scrapy_splash, you nedd this code.
+
+    def start_requests(self):
+        yield SplashRequest(self.start_urls[0], self.parse,
+        args={'wait': 0.5},
+    )
+    """
+    
+    def start_requests(self):
+        yield SplashRequest(self.start_urls[0], self.parse,
+        args={'wait': 0.5},
+    )
+    
 
     # Get the hotel pages
     def parse(self, response):
@@ -100,7 +119,7 @@ class BookingScoreSpider(scrapy.Spider):
         except:
             pass
         
-        # Category Population
+        # Category Population　※
         try:
             item['ctg_pplt'] = response.xpath('//*[@id="standalone_reviews_hotel_info_wrapper"]/div[1]/div/div/div/p/text()[2]').extract()[0]
         except:
@@ -108,19 +127,21 @@ class BookingScoreSpider(scrapy.Spider):
 
         # Category Ranking
         try:
-            item['ctg_rank'] = response.xpath('//*[@id="standalone_reviews_hotel_info_wrapper"]/div[1]/div/div/div/p/strong/text()').extract()[0]
+            rank = response.xpath('//*[@id="standalone_reviews_hotel_info_wrapper"]/div[1]/div/div/div/p/strong/text()').extract()[0]
+            item['ctg_rank'] = rank.rstrip('位')
         except:
             pass
                 
         # Review Score
         try:
-            item['review_score'] = response.xpath('normalize-space(//span[@class=" review-score-widget review-score-widget__superb review-score-widget__score-only    review-score-widget__24   review-score-widget__no-subtext    " ]/span[@class="review-score-badge"]/text())').extract()[0]
+            item['review_score'] = response.xpath('normalize-space(//span[contains(@class, "review-score-widget")]/span[@class="review-score-badge"]/text())').extract()[0]
         except:
             pass
         
         # Review Quantity
         try:
-            item['review_qty'] = response.xpath('normalize-space(//div[@class="review_list_score_container lang_ltr "]/p[@class="review_list_score_count"]/text())').extract()[0]
+            qty = response.xpath('normalize-space(//div[@class="review_list_score_container lang_ltr "]/p[@class="review_list_score_count"]/text())').extract()[0]
+            item['review_qty'] = qty.lstrip('ホテルのクチコミ').rstrip('件の評価')
         except:
             pass
         
@@ -177,7 +198,7 @@ class BookingScoreSpider(scrapy.Spider):
             item['date'] = datetime.datetime.now().strftime('%Y-%m-%d')
         except:
 
-                yield item
+        yield item
 
         next_page = response.xpath('//a[@id="review_next_page_link"]/@href')
         if next_page:
