@@ -1,26 +1,14 @@
 # -*- coding: utf-8 -*-
-
-# Define here the models for your scraped items
-#
-# See documentation in:
-# https://doc.scrapy.org/en/latest/topics/items.html
-
 import scrapy
-
-
-class HotelSentimentItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    title = scrapy.Field()
-    content = scrapy.Field()
-    stars = scrapy.Field()
 
 class TripAdvisorScoreItem(scrapy.Item):
     hotel_name = scrapy.Field()
     hotel_url = scrapy.Field()
     hotel_address = scrapy.Field()
     ctg_name = scrapy.Field()
-    ctg_ranking = scrapy.Field()
+    ctg_pplt = scrapy.Field()
+    ctg_rank = scrapy.Field()
+    rate_ctg_rank = scrapy.Field()
     review_stars = scrapy.Field()
     review_qty = scrapy.Field()
     review_qty_ja = scrapy.Field()
@@ -29,6 +17,13 @@ class TripAdvisorScoreItem(scrapy.Item):
     rate_of_en = scrapy.Field()
     review_qty_zhCN = scrapy.Field()
     rate_of_zhCN = scrapy.Field()
+    rktn_price = scrapy.Field()
+    knt_price = scrapy.Field()
+    relux_price = scrapy.Field()
+    ikyu_price = scrapy.Field()
+    bkcm_price = scrapy.Field()
+    expd_price = scrapy.Field()
+    jtb_price = scrapy.Field()
     datetime = scrapy.Field()
     date = scrapy.Field()
 
@@ -72,12 +67,12 @@ class BookingReviewItem(scrapy.Item):
     reviewer_location = scrapy.Field()
     posting_conts = scrapy.Field()
     positive_content = scrapy.Field()
-    nesitive_content = scrapy.Field()
+    negative_content = scrapy.Field()
     tag_n1 = scrapy.Field()
     tag_n2 = scrapy.Field()
     tag_n3 = scrapy.Field()
     tag_n4 = scrapy.Field()
     tag_n5 = scrapy.Field()
-    stardate = scrapy.Field()
+    staydate = scrapy.Field()
     datetime = scrapy.Field()
     date = scrapy.Field()
