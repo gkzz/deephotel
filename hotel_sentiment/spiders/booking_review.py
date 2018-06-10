@@ -2,6 +2,10 @@
 import scrapy
 from scrapy.loader import ItemLoader
 from hotel_sentiment.items import BookingReviewItem
+# from scrapy_splash import SplashRequest # If you use scrapy_splash, you nedd this code.
+import time
+import math
+import datetime
 
 
 class BookingReviewSpider(scrapy.Spider):
@@ -18,6 +22,16 @@ class BookingReviewSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(BookingReviewSpider, self).__init__(*args, **kwargs)
         self.start_urls = [kwargs.get('start_url')]
+    
+    """
+    # if you use scrapy_splash, you nedd this code.
+
+    def start_requests(self):
+        yield SplashRequest(self.start_urls[0], self.parse,
+        args={'wait': 0.5},
+    )
+    """
+    
 
     # Get the hotel pages
     def parse(self, response):
@@ -129,31 +143,31 @@ class BookingReviewSpider(scrapy.Spider):
         
         # Negative Content
         try:
-            item['nesitive_content'] = response.xpath('normalize-space(//p[@class="review_neg "]/span/text())').extract()[0]
+            item['negative_content'] = response.xpath('normalize-space(//p[@class="review_neg "]/span/text())').extract()[0]
         except:
             pass
         
-        # 1st Tag
+        # 1st Tag ここから
         try:
-            item['tag_n1'] = response.xpath('normalize-space(//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[1]/text()').extract()[0]
+            item['tag_n1'] = response.xpath('//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[1]/text()').extract()[1]
         except:
             pass
         
         # 2nd Tag
         try:
-            item['tag_n2'] = response.xpath('normalize-space(//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[2]/text())').extract()[0]
+            item['tag_n2'] = response.xpath('//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[2]/text()').extract()[1]
         except:
             pass
         
         # 3rd Tag
         try:
-            item['tag_n3'] = response.xpath('normalize-space(//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[3]/text())').extract()[0]
+            item['tag_n3'] = response.xpath('//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[3]/text()').extract()[1]
         except:
             pass
         
         # 4th Tag
         try:
-            item['tag_n4'] = response.xpath('normalize-space(//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[4]/text())').extract()[0]
+            item['tag_n4'] = response.xpath('//*[@id="b2reviews_reviewPage"]/div[6]/ul/li/div[4]/div/ul/li[4]/text()').extract()[1]
         except:
             pass
         
@@ -165,7 +179,7 @@ class BookingReviewSpider(scrapy.Spider):
 
         # Staydate
         try:
-            item['staydate'] = response.xpath('normalize-space(//p[starts-with(@class, "review_staydate")]/text())').extract()[0]
+            item['staydate'] = response.xpath('//p[starts-with(@class, "review_staydate")]/text()').extract()[0]
         except:
             pass
         
@@ -181,7 +195,7 @@ class BookingReviewSpider(scrapy.Spider):
         except:
 
 
-                yield item
+        yield item
 
         next_page = response.xpath('//a[@id="review_next_page_link"]/@href')
         if next_page:
