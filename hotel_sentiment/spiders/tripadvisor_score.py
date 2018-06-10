@@ -68,8 +68,7 @@ class TripadvisorScoreSpider(scrapy.Spider):
         Review Stars : 4.5
         Review Quantity : 969 (but, I can't modify the code so that I'm glad if you change it.)
         Review Qutantity written by Ja, En, Ch :
-        % of Review Qutantity written by Ja, En, Ch : 
-        Lowest Price of OTA, including Rakuten, KNT, Relux, Ikyu, Booking.com, Expedia, JTB
+        % of Review Qutantity written by Ja, En, Ch :
         Datetime : Date & Time Logged by This Python File
         Date : Only Date
 
@@ -196,64 +195,6 @@ class TripadvisorScoreSpider(scrapy.Spider):
             print('ZeroDivisionError')
         except:
             pass
-        
-        # Lowest Price of 楽天トラベル, Rakuten
-        try:
-            import pdb; pdb.set_trace()
-            rktn_price = response.xpath('//*[@data-provider="Rakuten"]//*/text[contains(text(), "￥")]').extract()[0]
-            item['rktn_price'] = rktn_price.lstrip('￥')
-        except IndexError:
-            print('IndexError: list index out of range')
-        except:
-            pass
-
-        """
-        # Lowest Price of 近畿日本ツーリスト, KNT
-        try:
-            item['knt_price'] = response.xpath('//*[@data-provider="KNT"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-        except:
-            pass
-        
-        # Lowest Price of Relux
-        try:
-            item['relux_price'] = response.xpath('//*[@data-provider="LocoPartners"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-        except:
-            pass
-        
-        # Lowest Price of 一休 .com,  IKYU
-        try:
-            item['ikyu_price'] = response.xpath('//*[@data-provider="Ikyu"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-        except:
-            pass
-        
-        # Lowest Price of Booking.com, ブッキング
-        try:
-            item['bkcm_price'] = response.xpath('//*[@data-provider="BookingCom"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-            pass
-
-        # Lowest Price of エクスペディア, Expedia
-        try:
-            item['expd_price'] = response.xpath('//*[@data-provider="Expedia"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-            pass
-
-        
-        # Lowest Price of JTB
-        try:
-            item['jtb_price'] = response.xpath('//*[@data-provider="JTB"]/@data-pernight').extract()[0]
-        except IndexError:
-            print('IndexError: list index out of range')
-            pass
-        """
 
         # Datetime
         try:
