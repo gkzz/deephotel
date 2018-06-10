@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from hotel_sentiment.items import TripAdvisorReviewItem
+# from scrapy_splash import SplashRequest # If you uses scrapy-splash, you nedd this code.
 import time
 import math
 import datetime
@@ -19,9 +20,15 @@ class TripadvisorReviewSpider(scrapy.Spider):
 
     """
 
-    def __init__(self, *args, **kwargs):
-        super(TripadvisorReviewSpider, self).__init__(*args, **kwargs)
-        self.start_urls = [kwargs.get('start_url')]
+    
+    """
+    # If you uses scrapy-splash, you nedd this code.
+
+    def start_requests(self):
+        yield SplashRequest(self.start_urls[0], self.parse,
+        args={'wait': 0.5},
+    )
+    """
 
     def parse(self, response):
         for href in response.xpath('//a[@class="property_title prominent"]/@href'):
