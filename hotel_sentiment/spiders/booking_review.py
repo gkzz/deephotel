@@ -193,6 +193,7 @@ class BookingReviewSpider(scrapy.Spider):
         try:
             item['date'] = datetime.datetime.now().strftime('%Y-%m-%d')
         except:
+            pass
 
 
         yield item
